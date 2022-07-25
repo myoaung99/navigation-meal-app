@@ -6,11 +6,7 @@ const MealItem = ({ onPress, meal }) => {
 
   return (
     <View style={styles.outerContainer}>
-      <Pressable
-        style={styles.innerContainer}
-        android_ripple={{ color: "#ccc" }}
-        onPress={onPress}
-      >
+      <Pressable android_ripple={{ color: "#ccc" }} onPress={onPress}>
         <View style={styles.ImageContainer}>
           <Image style={styles.image} source={{ uri: imageUrl }} />
         </View>

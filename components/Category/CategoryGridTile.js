@@ -1,37 +1,25 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  useWindowDimensions,
-  Platform,
-} from "react-native";
+import { View, Text, StyleSheet, Pressable, Platform } from "react-native";
 
 function CategoryGridTile({ category, onPress }) {
-  const { width, height } = useWindowDimensions();
-
-  let cardWidth = width / 2 - 40;
-
   return (
-    <View style={[styles.gridItem, { width: cardWidth }]}>
+    <View
+      style={[
+        styles.gridItem,
+        Platform.select({ android: { backgroundColor: category.color } }),
+      ]}
+    >
       <Pressable
+        android_ripple={{ color: "#ccc" }}
+        style={styles.innerContainer}
         onPress={onPress}
-        // android_ripple={{ color: "#ccc" }}
-        // style={[styles.outerContainer, { backgroundColor: category.color }]}
-        style={({ pressed }) =>
-          pressed
-            ? Platform.OS === "android" && [
-                [
-                  styles.outerContainer,
-                  styles.pressed,
-                  { backgroundColor: category.color },
-                ],
-              ]
-            : [styles.outerContainer, { backgroundColor: category.color }]
-        }
       >
-        <View style={[styles.button]}>
+        <View
+          style={[
+            styles.button,
+            Platform.select({ ios: { backgroundColor: category.color } }),
+          ]}
+        >
           <Text style={styles.title}>{category.title}</Text>
         </View>
       </Pressable>
@@ -44,19 +32,24 @@ export default CategoryGridTile;
 const styles = StyleSheet.create({
   gridItem: {
     height: 150,
-
-    shadowColor: "black", // ios drop shadow
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.25,
+    ...Platform.select({
+      android: { elevation: 4 },
+      ios: {
+        backgroundColor: "black",
+        shadowColor: "black",
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 4,
+        shadowOpacity: 0.75,
+      },
+    }),
+    flex: 1,
 
     margin: 8,
     borderRadius: 10,
     overflow: "hidden", // hide android_ripple overflow
   },
-  outerContainer: {
+  innerContainer: {
     flex: 1,
-    elevation: 5,
   },
   button: {
     flex: 1,
