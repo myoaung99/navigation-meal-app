@@ -26,7 +26,7 @@ const MealsOverviewScreen = ({ route, navigation }) => {
   return (
     <View style={styles.screen}>
       <FlatList
-        style={styles.screen}
+        style={styles.flatList}
         data={meals}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
@@ -41,5 +41,8 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 16,
+  },
+  flatList: {
+    paddingHorizontal: 5,
   },
 });

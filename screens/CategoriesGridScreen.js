@@ -15,22 +15,24 @@ function CategoriesGridScreen({ navigation }) {
     return <CategoryGridTile onPress={pressHandler} category={item} />;
   }
   return (
-    <FlatList
-      style={styles.flatList}
-      numColumns={2}
-      columnWrapperStyle={{ justifyContent: "space-around" }}
-      horizontal={false}
-      data={CATEGORIES}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.id}
-    />
+    <View style={styles.screen}>
+      <FlatList
+        style={styles.flatList}
+        numColumns={2}
+        columnWrapperStyle={{ justifyContent: "space-around" }}
+        horizontal={false}
+        data={CATEGORIES}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
+    </View>
   );
 }
 
 export default CategoriesGridScreen;
 
 const styles = StyleSheet.create({
-  flatList: {
+  screen: {
     padding: 16,
   },
 });

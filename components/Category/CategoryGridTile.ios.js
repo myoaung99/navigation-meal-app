@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
 
     margin: 8,
     borderRadius: 10,
-    overflow: "hidden", // hide android_ripple overflow
   },
   innerContainer: {
     flex: 1,

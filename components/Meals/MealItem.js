@@ -1,22 +1,35 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Pressable,
+  Platform,
+} from "react-native";
 
 const MealItem = ({ onPress, meal }) => {
   const { title, imageUrl, duration, complexity, affordability } = meal;
 
   return (
-    <View>
-      <Pressable onPress={onPress}>
+    <View style={styles.container}>
+      <Pressable
+        style={({ pressed }) =>
+          pressed && Platform.OS === "ios" && styles.pressed
+        }
+        android_ripple={{ color: "#ccc" }}
+        onPress={onPress}
+      >
         <View style={styles.ImageContainer}>
           <Image style={styles.image} source={{ uri: imageUrl }} />
         </View>
 
         <Text style={styles.title}>{title}</Text>
 
-        <View style={styles.infomation}>
-          <Text style={styles.infoText}>{duration}m</Text>
-          <Text style={styles.infoText}>{complexity.toUpperCase()}</Text>
-          <Text style={styles.infoText}>{affordability.toUpperCase()}</Text>
+        <View style={styles.details}>
+          <Text style={styles.detailText}>{duration}m</Text>
+          <Text style={styles.detailText}>{complexity.toUpperCase()}</Text>
+          <Text style={styles.detailText}>{affordability.toUpperCase()}</Text>
         </View>
       </Pressable>
     </View>
@@ -26,37 +39,40 @@ const MealItem = ({ onPress, meal }) => {
 export default MealItem;
 
 const styles = StyleSheet.create({
-  outerContainer: {
+  container: {
     backgroundColor: "white",
     borderRadius: 10,
-
     marginBottom: 20,
-    overflow: "hidden",
-  },
+    elevation: 4,
 
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0.5,
+
+    overflow: Platform.OS === "android" ? "hidden" : "visible",
+  },
   ImageContainer: {
-    width: "100%",
+    flex: 1,
     height: 200,
     borderRadius: 10,
   },
   image: {
     flex: 1,
-
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     padding: 10,
     textAlign: "center",
   },
-
-  infomation: {
+  details: {
     flexDirection: "row",
     justifyContent: "space-evenly",
     padding: 20,
   },
-  infoText: {
+  detailText: {
     color: "gray",
     fontSize: 12,
   },
