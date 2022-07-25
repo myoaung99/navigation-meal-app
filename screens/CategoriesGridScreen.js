@@ -1,14 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView, FlatList } from "react-native";
 import { CATEGORIES } from "../data/dummy_data";
-import CategoryGridTile from "../components/CategoryGridTile";
+import CategoryGridTile from "../components/Category/CategoryGridTile";
 
 function CategoriesGridScreen({ navigation }) {
   function renderItem({ item }) {
     // navigate to meals overview screen
     const pressHandler = () => {
       navigation.navigate("MealsOverview", {
-        categoryIds: item.id,
+        categoryId: item.id,
       });
     };
 
