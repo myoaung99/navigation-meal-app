@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 
 const MealItem = ({ onPress, meal }) => {
-  const { title, imageUrl } = meal;
+  const { title, imageUrl, duration, complexity, affordability } = meal;
 
   return (
     <View style={styles.outerContainer}>
@@ -14,7 +14,14 @@ const MealItem = ({ onPress, meal }) => {
         <View style={styles.ImageContainer}>
           <Image style={styles.image} source={{ uri: imageUrl }} />
         </View>
+
         <Text style={styles.title}>{title}</Text>
+
+        <View style={styles.infomation}>
+          <Text style={styles.infoText}>{duration}m</Text>
+          <Text style={styles.infoText}>{complexity.toUpperCase()}</Text>
+          <Text style={styles.infoText}>{affordability.toUpperCase()}</Text>
+        </View>
       </Pressable>
     </View>
   );
@@ -26,13 +33,11 @@ const styles = StyleSheet.create({
   outerContainer: {
     backgroundColor: "white",
     borderRadius: 10,
-    elevation: 4,
+
     marginBottom: 20,
+    overflow: "hidden",
   },
 
-  innerContainer: {
-    paddingBottom: 20,
-  },
   ImageContainer: {
     width: "100%",
     height: 200,
@@ -45,7 +50,18 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     padding: 10,
+    textAlign: "center",
+  },
+
+  infomation: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    padding: 20,
+  },
+  infoText: {
+    color: "gray",
+    fontSize: 12,
   },
 });
