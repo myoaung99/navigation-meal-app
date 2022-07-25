@@ -5,8 +5,8 @@ const MealItem = ({ onPress, meal }) => {
   const { title, imageUrl, duration, complexity, affordability } = meal;
 
   return (
-    <View style={styles.outerContainer}>
-      <Pressable android_ripple={{ color: "#ccc" }} onPress={onPress}>
+    <View>
+      <Pressable onPress={onPress}>
         <View style={styles.ImageContainer}>
           <Image style={styles.image} source={{ uri: imageUrl }} />
         </View>

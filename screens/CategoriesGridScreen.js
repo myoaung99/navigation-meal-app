@@ -16,7 +16,7 @@ function CategoriesGridScreen({ navigation }) {
   }
   return (
     <FlatList
-      style={styles.flatlist}
+      style={styles.flatList}
       numColumns={2}
       columnWrapperStyle={{ justifyContent: "space-around" }}
       horizontal={false}
@@ -30,7 +30,7 @@ function CategoriesGridScreen({ navigation }) {
 export default CategoriesGridScreen;
 
 const styles = StyleSheet.create({
-  flatlist: {
+  flatList: {
     padding: 16,
   },
 });
