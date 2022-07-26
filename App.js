@@ -17,6 +17,7 @@ export default function App() {
           initialRouteName="MealsCategories"
           screenOptions={{
             headerTintColor: "white",
+            headerTitleAlign: "center",
             headerStyle: {
               backgroundColor: "#450b10",
             },
@@ -33,7 +34,13 @@ export default function App() {
             }}
           />
           <Stack.Screen name="MealsOverview" component={MealsOverviewScreen} />
-          <Stack.Screen name="MealDetail" component={MealDetailScreen} />
+          <Stack.Screen
+            name="MealDetail"
+            component={MealDetailScreen}
+            options={{
+              title: "Meal Detail",
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>

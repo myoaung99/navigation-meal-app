@@ -1,13 +1,77 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { useLayoutEffect } from "react";
+import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import List from "../components/MealDetail/List";
+import Subtitle from "../components/MealDetail/Subtitle";
+import Details from "../components/Meals/Details";
 
-const MealDetailScreen = ({ route }) => {
-  const { id } = route.params.meal;
+const MealDetailScreen = ({ route, navigation }) => {
+  const {
+    id,
+    title,
+    imageUrl,
+    duration,
+    complexity,
+    affordability,
+    ingredients,
+    steps,
+  } = route.params.meal;
+
+  // useLayoutEffect(() => {
+  //   navigation.setOptions({
+  //     title: title,
+  //     headerTitleStyle: {
+  //       fontSize: 16,
+  //     },
+  //   });
+  // }, [navigation]);
   return (
-    <View>
-      <Text>Meal detail for {id}</Text>
+    <View style={styles.screen}>
+      <ScrollView>
+        <View style={styles.imageContainer}>
+          <Image style={styles.image} source={{ uri: imageUrl }} />
+        </View>
+        <Text style={styles.title}>{title}</Text>
+        <Details
+          style={{ color: "white" }}
+          duration={duration}
+          complexity={complexity}
+          affordability={affordability}
+        />
+        <View style={styles.listContainer}>
+          <Subtitle>Ingredients</Subtitle>
+          <List list={ingredients} />
+
+          <Subtitle>Ingredients</Subtitle>
+          <List list={steps} />
+        </View>
+      </ScrollView>
     </View>
   );
 };
 
 export default MealDetailScreen;
+
+const styles = StyleSheet.create({
+  screen: {
+    marginBottom: 30,
+  },
+  imageContainer: {
+    width: "100%",
+    height: 350,
+    marginBottom: 10,
+  },
+  image: {
+    flex: 1,
+  },
+  title: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 24,
+    fontWeight: "bold",
+    margin: 8,
+  },
+  listContainer: {
+    alignSelf: "center",
+    maxWidth: "95%",
+  },
+});

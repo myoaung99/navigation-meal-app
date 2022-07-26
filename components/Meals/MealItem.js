@@ -6,8 +6,10 @@ import {
   Image,
   Pressable,
   Platform,
-    useWindowDimensions
+  useWindowDimensions,
 } from "react-native";
+
+import Details from "./Details";
 
 const MealItem = ({ onPress, meal }) => {
   const { title, imageUrl, duration, complexity, affordability } = meal;
@@ -26,12 +28,12 @@ const MealItem = ({ onPress, meal }) => {
         </View>
 
         <Text style={styles.title}>{title}</Text>
-
-        <View style={styles.details}>
-          <Text style={styles.detailText}>{duration}m</Text>
-          <Text style={styles.detailText}>{complexity.toUpperCase()}</Text>
-          <Text style={styles.detailText}>{affordability.toUpperCase()}</Text>
-        </View>
+        <Details
+          style={{ padding: 10 }}
+          duration={duration}
+          complexity={complexity}
+          affordability={affordability}
+        />
       </Pressable>
     </View>
   );
@@ -41,9 +43,9 @@ export default MealItem;
 
 const styles = StyleSheet.create({
   container: {
-    alignSelf: 'center',
+    alignSelf: "center",
     width: 450,
-    maxWidth: '100%',
+    maxWidth: "100%",
     backgroundColor: "white",
     borderRadius: 10,
     marginBottom: 20,
@@ -72,15 +74,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     paddingHorizontal: 16,
-  },
-  details: {
-    flexDirection: "row",
-    justifyContent: "center",
-    padding: 16,
-  },
-  detailText: {
-    color: 'black',
-    fontSize: 10,
-    marginHorizontal: 4,
   },
 });
