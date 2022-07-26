@@ -1,5 +1,5 @@
 import React from "react";
-import {View, StyleSheet, Text, Pressable, Platform} from "react-native";
+import { StyleSheet, Pressable} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 function HeaderButton({onPress, icon, color}) {
