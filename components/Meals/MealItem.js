@@ -6,6 +6,7 @@ import {
   Image,
   Pressable,
   Platform,
+    useWindowDimensions
 } from "react-native";
 
 const MealItem = ({ onPress, meal }) => {
@@ -40,6 +41,9 @@ export default MealItem;
 
 const styles = StyleSheet.create({
   container: {
+    alignSelf: 'center',
+    width: 450,
+    maxWidth: '100%',
     backgroundColor: "white",
     borderRadius: 10,
     marginBottom: 20,
@@ -56,6 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 200,
     borderRadius: 10,
+    marginBottom: 10,
   },
   image: {
     flex: 1,
@@ -64,16 +69,18 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    padding: 10,
+    fontWeight: "bold",
     textAlign: "center",
+    paddingHorizontal: 16,
   },
   details: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
-    padding: 20,
+    justifyContent: "center",
+    padding: 16,
   },
   detailText: {
-    color: "gray",
-    fontSize: 12,
+    color: 'black',
+    fontSize: 10,
+    marginHorizontal: 4,
   },
 });
