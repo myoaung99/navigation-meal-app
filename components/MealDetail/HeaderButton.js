@@ -22,7 +22,7 @@ export default HeaderButton;
 const styles = StyleSheet.create({
     outerContainer: {
         overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
-        backgroundColor: '#b18687',
+        backgroundColor: '#daa7a9',
         borderRadius: 5,
         elevation: 4,
     },
