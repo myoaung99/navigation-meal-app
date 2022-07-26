@@ -1,11 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import MealItem from "../components/Meals/MealItem";
-import { MEALS } from "../data/dummy_data";
+import { MEALS, CATEGORIES } from "../data/dummy_data";
 
 const MealsOverviewScreen = ({ route, navigation }) => {
   const [meals, setMeals] = useState([]);
   const { categoryId } = route.params;
+
+  // set navigation options dynamically
+  useLayoutEffect(() => {
+    const categoryTitle = CATEGORIES.find(
+      (category) => category.id === categoryId
+    ).title;
+
+    navigation.setOptions({
+      title: categoryTitle,
+    });
+  }, [categoryId, navigation]);
 
   const renderItem = ({ item }) => {
     const pressHandler = () => {
