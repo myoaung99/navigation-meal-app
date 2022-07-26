@@ -17,11 +17,19 @@ const MealDetailScreen = ({ route, navigation }) => {
     steps,
   } = route.params.meal;
 
+  const headerButtonPressHandler = () => {
+    console.log('headerPressHandler pressed!!')
+  }
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: HeaderButton,
+      headerRight: ()=>{
+        return <HeaderButton onPress={headerButtonPressHandler} color="white" icon="star"/>
+      },
     });
   }, [navigation]);
+
+
   return (
     <View style={styles.screen}>
       <ScrollView>
