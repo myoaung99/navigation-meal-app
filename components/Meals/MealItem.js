@@ -18,7 +18,9 @@ const MealItem = ({ onPress, meal }) => {
     <View style={styles.container}>
       <Pressable
         style={({ pressed }) =>
-          pressed && Platform.OS === "ios" && styles.pressed
+          pressed
+            ? Platform.OS === "ios" && [(styles.innerContainer, styles.pressed)]
+            : styles.innerContainer
         }
         android_ripple={{ color: "#ccc" }}
         onPress={onPress}
@@ -58,6 +60,9 @@ const styles = StyleSheet.create({
 
     overflow: Platform.OS === "android" ? "hidden" : "visible",
   },
+  innerContainer: {
+    flex: 1,
+  },
   ImageContainer: {
     flex: 1,
     height: 200,
@@ -74,5 +79,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     paddingHorizontal: 16,
+  },
+  pressed: {
+    opacity: 0.75,
   },
 });
