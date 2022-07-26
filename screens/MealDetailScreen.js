@@ -1,8 +1,9 @@
 import React, { useLayoutEffect } from "react";
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView, Button } from "react-native";
 import List from "../components/MealDetail/List";
 import Subtitle from "../components/MealDetail/Subtitle";
 import Details from "../components/Meals/Details";
+import HeaderButton from "../components/MealDetail/HeaderButton";
 
 const MealDetailScreen = ({ route, navigation }) => {
   const {
@@ -16,14 +17,11 @@ const MealDetailScreen = ({ route, navigation }) => {
     steps,
   } = route.params.meal;
 
-  // useLayoutEffect(() => {
-  //   navigation.setOptions({
-  //     title: title,
-  //     headerTitleStyle: {
-  //       fontSize: 16,
-  //     },
-  //   });
-  // }, [navigation]);
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: HeaderButton,
+    });
+  }, [navigation]);
   return (
     <View style={styles.screen}>
       <ScrollView>
@@ -41,7 +39,7 @@ const MealDetailScreen = ({ route, navigation }) => {
           <Subtitle>Ingredients</Subtitle>
           <List list={ingredients} />
 
-          <Subtitle>Ingredients</Subtitle>
+          <Subtitle>Steps</Subtitle>
           <List list={steps} />
         </View>
       </ScrollView>
