@@ -17,14 +17,14 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       screenOptions={{
+        headerTitleAlign: "center",
         headerTintColor: "white",
         drawerStyle: {
-          backgroundColor: "#4d2f31",
+          backgroundColor: "#450b10",
         },
-        drawerLabelStyle: {
-          color: "white",
-        },
-        drawerActiveBackgroundColor: "#450b10",
+        drawerInactiveTintColor: "white",
+        drawerActiveTintColor: "#450b10",
+        drawerActiveBackgroundColor: "#e3a6ab",
         headerShadowVisible: false,
         headerStyle: {
           backgroundColor: "#450b10",
@@ -40,7 +40,7 @@ const DrawerNavigator = () => {
         options={{
           title: "All Categories",
           drawerIcon: ({ color, size }) => {
-            return <Ionicons name="grid" color="white" size={size} />;
+            return <Ionicons name="grid" color={color} size={size} />;
           },
         }}
       />
@@ -49,7 +49,7 @@ const DrawerNavigator = () => {
         component={FavoriteMeals}
         options={{
           drawerIcon: ({ color, size }) => {
-            return <Ionicons name="star" color="white" size={size} />;
+            return <Ionicons name="star" color={color} size={size} />;
           },
         }}
       />
