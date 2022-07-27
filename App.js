@@ -5,8 +5,57 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CategoriesGridScreen from "./screens/CategoriesGridScreen";
 import MealsOverviewScreen from "./screens/MealsOverviewScreen";
 import MealDetailScreen from "./screens/MealDetailScreen";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import FavoriteMeals from "./screens/FavoriteMeals";
+import { Ionicons } from "@expo/vector-icons";
+
+const Drawer = createDrawerNavigator();
 
 const Stack = createNativeStackNavigator();
+
+const DrawerNavigator = () => {
+  return (
+    <Drawer.Navigator
+      screenOptions={{
+        headerTintColor: "white",
+        drawerStyle: {
+          backgroundColor: "#4d2f31",
+        },
+        drawerLabelStyle: {
+          color: "white",
+        },
+        drawerActiveBackgroundColor: "#450b10",
+        headerShadowVisible: false,
+        headerStyle: {
+          backgroundColor: "#450b10",
+        },
+        sceneContainerStyle: {
+          backgroundColor: "#4d2f31",
+        },
+      }}
+    >
+      <Drawer.Screen
+        name="Category"
+        component={CategoriesGridScreen}
+        options={{
+          title: "All Categories",
+          drawerIcon: ({ color, size }) => {
+            return <Ionicons name="grid" color="white" size={size} />;
+          },
+        }}
+      />
+      <Drawer.Screen
+        name="Favorite"
+        component={FavoriteMeals}
+        options={{
+          drawerIcon: ({ color, size }) => {
+            return <Ionicons name="star" color="white" size={size} />;
+          },
+        }}
+      />
+    </Drawer.Navigator>
+  );
+};
 
 export default function App() {
   return (
@@ -28,9 +77,9 @@ export default function App() {
         >
           <Stack.Screen
             name="MealsCategories"
-            component={CategoriesGridScreen}
+            component={DrawerNavigator}
             options={{
-              title: "All Categories",
+              headerShown: false,
             }}
           />
           <Stack.Screen name="MealsOverview" component={MealsOverviewScreen} />
