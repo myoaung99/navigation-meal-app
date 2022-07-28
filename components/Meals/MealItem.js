@@ -10,6 +10,7 @@ import {
 } from "react-native";
 
 import Details from "./Details";
+import {Dimensions} from "react-native";
 
 const MealItem = ({ onPress, meal }) => {
   const { title, imageUrl, duration, complexity, affordability } = meal;
@@ -19,7 +20,7 @@ const MealItem = ({ onPress, meal }) => {
       <Pressable
         style={({ pressed }) =>
           pressed
-            ? Platform.OS === "ios" && [(styles.innerContainer, styles.pressed)]
+            ? Platform.OS === "ios" ? [(styles.innerContainer, styles.pressed)] : styles.innerContainer
             : styles.innerContainer
         }
         android_ripple={{ color: "#ccc" }}
@@ -43,11 +44,13 @@ const MealItem = ({ onPress, meal }) => {
 
 export default MealItem;
 
+const deviceWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   container: {
     alignSelf: "center",
     width: 450,
-    maxWidth: "100%",
+    maxWidth: deviceWidth < 350 ? "95%" : "100%",
     backgroundColor: "white",
     borderRadius: 10,
     marginBottom: 20,
@@ -65,7 +68,7 @@ const styles = StyleSheet.create({
   },
   ImageContainer: {
     flex: 1,
-    height: 200,
+    height: deviceWidth < 350 ? 150 : 200,
     borderRadius: 10,
     marginBottom: 10,
   },
@@ -75,7 +78,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
   },
   title: {
-    fontSize: 20,
+    fontSize: deviceWidth < 350 ? 18 : 20,
     fontWeight: "bold",
     textAlign: "center",
     paddingHorizontal: 16,

@@ -17,10 +17,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 24,
     padding: 6,
     borderBottomWidth: 2,
-    borderBottomColor: "#cc9397",
+    borderBottomColor: "#d9dc36",
   },
   subtitle: {
-    color: "#cc9397",
+    color: "#d9dc36",
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",

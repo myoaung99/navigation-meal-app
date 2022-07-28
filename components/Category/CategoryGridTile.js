@@ -1,17 +1,18 @@
-import { View, Text, StyleSheet, Pressable, Platform } from "react-native";
+import { View, Text, StyleSheet, Pressable, Platform, Dimensions } from "react-native";
 
 function CategoryGridTile({ category, onPress }) {
   return (
-    <View style={styles.gridItem}>
+    <View style={[styles.gridItem, Platform.OS === 'android' ? { backgroundColor: category.color } : null]}>
       <Pressable
         style={({ pressed }) =>
-          pressed
-            ? [styles.innerContainer, styles.pressed]
-            : styles.innerContainer
+            pressed
+                ? Platform.OS === 'ios' ? [styles.innerContainer, styles.pressed] : styles.innerContainer
+                : styles.innerContainer
         }
+        android_ripple={{ color: "#ccc" }}
         onPress={onPress}
       >
-        <View style={[styles.button, { backgroundColor: category.color }]}>
+        <View style={[styles.button, Platform.OS === 'ios' ? { backgroundColor: category.color } : null]}>
           <Text style={styles.title}>{category.title}</Text>
         </View>
       </Pressable>
@@ -21,18 +22,20 @@ function CategoryGridTile({ category, onPress }) {
 
 export default CategoryGridTile;
 
+const deviceWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   gridItem: {
     flex: 1,
-    height: 150,
-
+    height: deviceWidth < 350 ? 120: 150,
+    elevation: 4,
     shadowColor: "black",
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0.5,
-
     margin: 8,
     borderRadius: 10,
+    overflow: Platform.OS === 'android' ? 'hidden' : 'visible', // hide android_ripple corner overflow
   },
   innerContainer: {
     flex: 1,

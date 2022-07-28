@@ -19,16 +19,16 @@ const DrawerNavigator = () => {
       screenOptions={{
         headerTitleAlign: "center",
         headerTintColor: "white",
+        headerShadowVisible: false,
+        headerStyle: {
+              backgroundColor: "#450b10",
+        },
         drawerStyle: {
           backgroundColor: "#450b10",
         },
         drawerInactiveTintColor: "white",
         drawerActiveTintColor: "#450b10",
         drawerActiveBackgroundColor: "#e3a6ab",
-        headerShadowVisible: false,
-        headerStyle: {
-          backgroundColor: "#450b10",
-        },
         sceneContainerStyle: {
           backgroundColor: "#4d2f31",
         },
@@ -63,7 +63,6 @@ export default function App() {
       <StatusBar style="light" />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="MealsCategories"
           screenOptions={{
             headerTintColor: "white",
             headerTitleAlign: "center",

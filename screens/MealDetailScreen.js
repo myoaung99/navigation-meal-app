@@ -1,11 +1,12 @@
 import React, { useLayoutEffect } from "react";
-import { View, Text, StyleSheet, Image, ScrollView, Button } from "react-native";
+import {View, Text, StyleSheet, Image, ScrollView, Dimensions, useWindowDimensions} from "react-native";
 import List from "../components/MealDetail/List";
 import Subtitle from "../components/MealDetail/Subtitle";
 import Details from "../components/Meals/Details";
 import HeaderButton from "../components/MealDetail/HeaderButton";
 
 const MealDetailScreen = ({ route, navigation }) => {
+  const {width: DeviceWidth, height: DeviceHeight} = useWindowDimensions();
   const {
     id,
     title,
@@ -29,11 +30,25 @@ const MealDetailScreen = ({ route, navigation }) => {
     });
   }, [navigation]);
 
+  let marginB = 30;
+  let imgHeight = 350;
+
+  if(DeviceHeight < 350){
+    marginB = 8;
+  }
+
+  if(DeviceWidth < 350){
+    imgHeight = 200
+  }
+
+  if(DeviceWidth > 350 && DeviceHeight < 350){
+    imgHeight = 200
+  }
 
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, {marginBottom: marginB}]}>
       <ScrollView>
-        <View style={styles.imageContainer}>
+        <View style={[styles.imageContainer, {height: imgHeight}]}>
           <Image style={styles.image} source={{ uri: imageUrl }} />
         </View>
         <Text style={styles.title}>{title}</Text>
@@ -57,13 +72,14 @@ const MealDetailScreen = ({ route, navigation }) => {
 
 export default MealDetailScreen;
 
+const deviceWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   screen: {
-    marginBottom: 30,
+
   },
   imageContainer: {
     width: "100%",
-    height: 350,
     marginBottom: 10,
   },
   image: {
@@ -72,12 +88,12 @@ const styles = StyleSheet.create({
   title: {
     color: "white",
     textAlign: "center",
-    fontSize: 24,
+    fontSize: deviceWidth < 350 ? 20 : 24,
     fontWeight: "bold",
     margin: 8,
   },
   listContainer: {
     alignSelf: "center",
-    maxWidth: "95%",
+    maxWidth: deviceWidth < 350 ? "100%" : "95%",
   },
 });

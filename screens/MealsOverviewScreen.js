@@ -1,10 +1,11 @@
 import React, { useLayoutEffect, useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import {View, Text, StyleSheet, FlatList, useWindowDimensions} from "react-native";
 import MealItem from "../components/Meals/MealItem";
 import { MEALS, CATEGORIES } from "../data/dummy_data";
 
 const MealsOverviewScreen = ({ route, navigation }) => {
   const [meals, setMeals] = useState([]);
+  const {width: DeviceWidth, height: DeviceHeight} = useWindowDimensions();
   const { categoryId } = route.params;
 
   // set navigation options dynamically
@@ -34,8 +35,14 @@ const MealsOverviewScreen = ({ route, navigation }) => {
     setMeals(mealsList);
   }, []);
 
+  let paddingV = 16;
+
+  if(DeviceHeight < 350){
+    paddingV = 8;
+  }
+
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, {paddingVertical: paddingV}]}>
       <FlatList
         style={styles.flatList}
         data={meals}
@@ -51,7 +58,7 @@ export default MealsOverviewScreen;
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingVertical: 16,
+    paddingVertical: 0,
   },
   flatList: {
     paddingHorizontal: 16,

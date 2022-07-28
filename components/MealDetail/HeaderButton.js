@@ -1,6 +1,8 @@
 import React from "react";
-import { StyleSheet, Pressable} from "react-native";
+import { StyleSheet, Pressable, Dimensions} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+
+const deviceWidth = Dimensions.get('window').width;
 
 function HeaderButton({onPress, icon, color}) {
     return (
@@ -13,7 +15,7 @@ function HeaderButton({onPress, icon, color}) {
             <Ionicons
                 iconStyles={{padding: 10}}
                 name={icon}
-                size={26}
+                size={deviceWidth < 350 ? 20 : 26}
                 color={color}
             />
         </Pressable>
