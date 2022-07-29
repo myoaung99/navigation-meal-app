@@ -27,7 +27,7 @@ const deviceWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   gridItem: {
     flex: 1,
-    height: deviceWidth < 350 ? 120: 150,
+    height: deviceWidth < 350 ? 100: 150,
     elevation: 4,
     shadowColor: "black",
     shadowOffset: { width: 0, height: 2 },

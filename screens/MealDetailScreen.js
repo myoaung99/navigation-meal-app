@@ -1,14 +1,30 @@
-import React, { useLayoutEffect } from "react";
-import {View, Text, StyleSheet, Image, ScrollView, Dimensions, useWindowDimensions} from "react-native";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Dimensions,
+  useWindowDimensions,
+} from "react-native";
 import List from "../components/MealDetail/List";
 import Subtitle from "../components/MealDetail/Subtitle";
 import Details from "../components/Meals/Details";
 import HeaderButton from "../components/MealDetail/HeaderButton";
+import { FavoriteContext } from "../store/context/favorite-context";
+import { MEALS } from "../data/dummy_data";
 
 const MealDetailScreen = ({ route, navigation }) => {
-  const {width: DeviceWidth, height: DeviceHeight} = useWindowDimensions();
+  const favoriteMealCtx = useContext(FavoriteContext);
+  const { width: DeviceWidth, height: DeviceHeight } = useWindowDimensions();
+
+  const mealId = route.params.mealId;
+  const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+
+  const mealIsFavorite = favoriteMealCtx.ids.includes(mealId);
+
   const {
-    id,
     title,
     imageUrl,
     duration,
@@ -16,39 +32,49 @@ const MealDetailScreen = ({ route, navigation }) => {
     affordability,
     ingredients,
     steps,
-  } = route.params.meal;
+  } = selectedMeal;
 
-  const headerButtonPressHandler = () => {
-    console.log('headerPressHandler pressed!!')
-  }
+  const toggleFavoriteMeal = () => {
+    if (mealIsFavorite) {
+      favoriteMealCtx.removeFavorite(mealId);
+    } else {
+      favoriteMealCtx.addFavorite(mealId);
+    }
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: ()=>{
-        return <HeaderButton onPress={headerButtonPressHandler} color="white" icon="star"/>
+      headerRight: () => {
+        return (
+          <HeaderButton
+            onPress={toggleFavoriteMeal}
+            color="white"
+            icon={mealIsFavorite ? "star" : "star-outline"}
+          />
+        );
       },
     });
-  }, [navigation]);
+  }, [navigation, toggleFavoriteMeal]);
 
   let marginB = 30;
   let imgHeight = 350;
 
-  if(DeviceHeight < 350){
+  if (DeviceHeight < 400) {
     marginB = 8;
   }
 
-  if(DeviceWidth < 350){
-    imgHeight = 200
+  if (DeviceWidth < 350) {
+    imgHeight = 200;
   }
 
-  if(DeviceWidth > 350 && DeviceHeight < 350){
-    imgHeight = 200
+  if (DeviceWidth > 350 && DeviceHeight < 400) {
+    imgHeight = 250;
   }
 
   return (
-    <View style={[styles.screen, {marginBottom: marginB}]}>
+    <View style={[styles.screen, { marginBottom: marginB }]}>
       <ScrollView>
-        <View style={[styles.imageContainer, {height: imgHeight}]}>
+        <View style={[styles.imageContainer, { height: imgHeight }]}>
           <Image style={styles.image} source={{ uri: imageUrl }} />
         </View>
         <Text style={styles.title}>{title}</Text>
@@ -72,12 +98,10 @@ const MealDetailScreen = ({ route, navigation }) => {
 
 export default MealDetailScreen;
 
-const deviceWidth = Dimensions.get('window').width;
+const deviceWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
-  screen: {
-
-  },
+  screen: {},
   imageContainer: {
     width: "100%",
     marginBottom: 10,

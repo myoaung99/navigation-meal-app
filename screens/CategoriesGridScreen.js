@@ -7,8 +7,10 @@ function CategoriesGridScreen({ navigation }) {
   const {width: DeviceWidth, height: DeviceHeight} = useWindowDimensions();
   const [columns, setColumns] = useState(2);
 
+  console.log(DeviceWidth, DeviceHeight);
+
   useEffect(() => {
-    DeviceHeight < 350 ? setColumns(3) : setColumns(2);
+    DeviceHeight < 400 && DeviceWidth > 400 ? setColumns(3) : setColumns(2);
   },[DeviceHeight]);
 
   function renderItem({ item }) {
