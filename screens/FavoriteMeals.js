@@ -1,61 +1,52 @@
-import React, { useContext, useEffect, useState } from "react";
-import { View, FlatList, StyleSheet, useWindowDimensions } from "react-native";
-import MealItem from "../components/Meals/MealItem";
-import { FavoriteContext } from "./../store/context/favorite-context";
+import React, { useEffect, useState } from "react";
+import { View, Text, Button, StyleSheet } from "react-native";
+// import { FavoriteContext } from "./../store/context/favorite-context";
+import { useSelector } from "react-redux";
 import { MEALS } from "../data/dummy_data";
+import MealList from "../components/Meals/MealList";
 
 const FavoriteMeals = ({ navigation }) => {
-  const { height: DeviceHeight } = useWindowDimensions();
-
   const [favoriteMeals, setFavoriteMeals] = useState([]);
 
-  const favoriteMealCtx = useContext(FavoriteContext);
-  const favoriteMealIds = favoriteMealCtx.ids;
+  const favoriteMealIds = useSelector((state) => state.favoriteMeals.ids);
 
   useEffect(() => {
     const filteredFavoriteMeals = MEALS.filter((meal) =>
       favoriteMealIds.includes(meal.id)
     );
-
     setFavoriteMeals(filteredFavoriteMeals);
   }, [favoriteMealIds]);
 
-  const renderItem = ({ item }) => {
-    const pressHandler = () => {
-      navigation.navigate("MealDetail", {
-        mealId: item.id,
-      });
-    };
-    return <MealItem meal={item} onPress={pressHandler} />;
+  const browseMealsHandler = () => {
+    navigation.navigate("Category");
   };
 
-  let paddingV = 16;
-
-  if (DeviceHeight < 400) {
-    paddingV = 8;
+  if (favoriteMeals.length <= 0) {
+    return (
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>There is no favorite meals yet.</Text>
+        <Button
+          color={"#450b10"}
+          title="Browse Meals"
+          onPress={browseMealsHandler}
+        />
+      </View>
+    );
   }
-
-  return (
-    <View style={[styles.screen, { paddingVertical: paddingV }]}>
-      <FlatList
-        key={favoriteMeals}
-        style={styles.flatList}
-        data={favoriteMeals}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-    </View>
-  );
+  return <MealList items={favoriteMeals} navigation={navigation} />;
 };
 
 export default FavoriteMeals;
 
 const styles = StyleSheet.create({
-  screen: {
+  textContainer: {
     flex: 1,
-    paddingVertical: 0,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  flatList: {
-    paddingHorizontal: 16,
+  text: {
+    fontSize: 20,
+    color: "white",
+    marginBottom: 10,
   },
 });
