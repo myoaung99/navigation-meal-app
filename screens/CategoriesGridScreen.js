@@ -1,17 +1,29 @@
-import React, {useEffect, useState} from "react";
-import { View, Text, StyleSheet, ScrollView, FlatList, useWindowDimensions } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  FlatList,
+  useWindowDimensions,
+} from "react-native";
 import { CATEGORIES } from "../data/dummy_data";
 import CategoryGridTile from "../components/Category/CategoryGridTile";
 
 function CategoriesGridScreen({ navigation }) {
-  const {width: DeviceWidth, height: DeviceHeight} = useWindowDimensions();
+  const { width: DeviceWidth, height: DeviceHeight } = useWindowDimensions();
   const [columns, setColumns] = useState(2);
 
   console.log(DeviceWidth, DeviceHeight);
 
   useEffect(() => {
     DeviceHeight < 400 && DeviceWidth > 400 ? setColumns(3) : setColumns(2);
-  },[DeviceHeight]);
+  }, [DeviceHeight]);
+
+  let screenPaddingHorizontal = 16;
+  if (DeviceHeight < 400 && DeviceWidth > 400) {
+    screenPaddingHorizontal = 50;
+  }
 
   function renderItem({ item }) {
     // navigate to meals overview screen
@@ -24,10 +36,12 @@ function CategoriesGridScreen({ navigation }) {
     return <CategoryGridTile onPress={pressHandler} category={item} />;
   }
   return (
-    <View style={styles.screen}>
+    <View
+      style={[styles.screen, { paddingHorizontal: screenPaddingHorizontal }]}
+    >
       <FlatList
         style={styles.flatList}
-        numColumns = {columns}
+        numColumns={columns}
         key={columns}
         columnWrapperStyle={{ justifyContent: "space-around" }}
         horizontal={false}
@@ -43,6 +57,10 @@ export default CategoriesGridScreen;
 
 const styles = StyleSheet.create({
   screen: {
-    padding: 16,
+    flex: 1,
+  },
+  flatList: {
+    flex: 1,
+    paddingVertical: 16,
   },
 });
