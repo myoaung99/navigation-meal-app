@@ -40,5 +40,6 @@ const styles = StyleSheet.create({
   },
   flatList: {
     paddingHorizontal: 16,
+    flex: 1,
   },
 });
